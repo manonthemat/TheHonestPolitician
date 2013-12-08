@@ -17,13 +17,18 @@
     </div>
     <%= javascript_include_tag "application" %>
     <script>
-        // ToDo: redraw this mofo... zurb foundation 5 should make it easier = not harder to develop web apps
+        $(document).foundation({
+            orbit: {
+                bullets: false,
+                navigation_arrows: true,
+            }
+
+        })
+        // ToDo: redraw this mofo... zurb foundation 5 should make it easier, not harder to develop web apps
         // this is necessary due to a bug in the orbit slider
-        $(document).ready(function() {
-            $('dd').click(function() {
-                $(document).hide(0, function(){$(document).delay(100).show()});
+            $('dd a').click(function() {
+                $(window).resize();
             });
-        });
     </script>
   </body>
 </html>
