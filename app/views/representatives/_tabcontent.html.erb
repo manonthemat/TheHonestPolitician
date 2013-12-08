@@ -2,7 +2,11 @@
     <% theseoffices.each_with_index do |fo, index| %>
         <li>
             <a href="#" data-reveal-id="<%= fo['level'] %><%= index %>">
-                <img src="<%= fo['official_photoUrl'] %>" alt="<%= fo['official_name'] %>" />
+                <% if fo['official_photoUrl'].nil? %>
+                    <%= image_tag('thp.png') %>
+                <% else %>
+                    <img src="<%= fo['official_photoUrl'] %>" alt="<%= fo['official_name'] %>" />
+                <% end %>
                 <div class="orbit-caption"><%= fo['official_name'] %></div>
             </a>
         </li>
@@ -12,10 +16,11 @@
     <div id="<%= fo['level'] %><%= index %>" class="reveal-modal" data-reveal>
         <p><%= fo['official_name'] %>
            <% if fo['official_party'] != nil %>
+                <% pims = "float: left; max-width: 30px; padding-right: 5px;" %>
                 <% if fo['official_party'].downcase.start_with?('democrat') %>
-                    <%= image_tag('parties/democrats.svg', alt: 'Democrat', style: "float: right") %>
+                    <%= image_tag('parties/democrats.svg', alt: 'Democrat', style: pims) %>
                 <% elsif fo['official_party'].downcase.start_with?('republic') %>
-                    <%= image_tag('parties/republicans.svg', alt: 'Republican') %>
+                    <%= image_tag('parties/republicans.svg', alt: 'Republican', style: pims) %>
                 <% end %>
             <% end %>
             </p>
