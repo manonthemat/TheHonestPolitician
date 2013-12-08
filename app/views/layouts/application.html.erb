@@ -17,18 +17,26 @@
     </div>
     <%= javascript_include_tag "application" %>
     <script>
+        // ToDo: redraw this mofo... zurb foundation 5 should make it easier, not harder to develop web apps
+        // this is necessary due to a bug in the orbit slider
+        function fixitnow() {
+            $(window).resize();
+        }
         $(document).foundation({
             orbit: {
                 bullets: false,
                 navigation_arrows: true,
+                slide_number_text: '/',
+                before_slide_change: fixitnow,
+                timer_speed: 1000,
             }
 
-        })
-        // ToDo: redraw this mofo... zurb foundation 5 should make it easier, not harder to develop web apps
-        // this is necessary due to a bug in the orbit slider
+        });
+        $(document).ready(function() {
             $('dd a').click(function() {
-                $(window).resize();
+                fixitnow();
             });
+        });
     </script>
   </body>
 </html>
