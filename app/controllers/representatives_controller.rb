@@ -68,11 +68,7 @@ class RepresentativesController < ApplicationController
     return [@offices, @officials]
   end
 
-  def getRepresentativesVotes(rep_id)
-    votes = SUNLIGHT_API_ROOT + "/votes?voter_ids.#{rep_id}__exists=true&apikey=#{SUNLIGHT_KEY}&fields=question,vote_type,result,source"
-  end
-
-  def getRepresentativesID
+  def getVotes
     full_name = params[:full_name]
     require "json"
     require "net/http"
@@ -98,8 +94,15 @@ class RepresentativesController < ApplicationController
     response = http.request(request)
     begin
       @bio_id = JSON.parse(response.body)['results'][0]['bioguide_id']
+      votes = SUNLIGHT_API_ROOT + "/votes?voter_ids.#{@bio_id}__exists=true&apikey=#{SUNLIGHT_KEY}&fields=question,vote_type,result,source"
+      uri = URI.parse(votes)
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri, initheader = {'Content-Type' =>'application/json'})
+      response = http.request(request)
+      @votes = JSON.parse(response.body)
     rescue Exception
       @bio_id = 'none'
+      @votes = ''
     end
   end
 end
