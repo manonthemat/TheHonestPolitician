@@ -6,3 +6,5 @@ TheHonestPolitician::Application.initialize!
 
 # API Key for Google Civic Information
 API_KEY = 'YOURAPIKEYHERE'
+SUNLIGHT_KEY = 'YOURAPIKEYHERE'
+SUNLIGHT_APIR_ROOT = 'http://congress.api.sunlightfoundation.com/'

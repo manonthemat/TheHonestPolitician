@@ -68,6 +68,11 @@ class RepresentativesController < ApplicationController
     return [@offices, @officials]
   end
 
-  def todo
+  def getRepresentativesVotes(voter_id)
+    vote_url = SUNLIGHT_API_ROOT + "/votes?voter_ids.#{voter_id}__exists=true"
+  end
+
+  def getRepresentativesID(first_name, last_name)
+    SUNLIGHT_API_ROOT + "/legislators?query=#{last_name}&first_name=#{first_name}&apikey=#{SUNLIGHT_KEY}&fields=bioguide_id"
   end
 end
