@@ -1,0 +1,43 @@
+<h2>Your Representatives</h2>
+<dl class="accordion" data-accordion>
+    <% if @cityOffices.any? %>
+        <dd>
+            <a href='#panel-ct'>City Representatives</a>
+            <div id='panel-ct' class='content'>
+                <%= @cityOffices %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @countyOffices.any? %>
+        <dd>
+            <a href='#panel-co'>County Representatives</a>
+            <div id='panel-co' class='content'>
+                <%= @countyOffices %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @stateOffices.any? %>
+        <dd>
+            <a href='#panel-so'>State Representatives</a>
+            <div id='panel-so' class='content'>
+                <%= @stateOffices %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @federalOffices.any? %>
+        <dd>
+            <a href='#panel-fo'>Federal Representatives</a>
+            <div id='panel-fo' class='content'>
+                <%= render partial: 'tabcontent' %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @otherOffices.any? %>
+        <dd>
+            <a href='#panel-oo'>Other Representatives</a>
+            <div id='panel-oo' class='content'>
+                <%= @otherOffices %>
+            </div>
+        </dd>
+    <% end %>
+</dl>

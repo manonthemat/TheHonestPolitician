@@ -1,0 +1,91 @@
+<ul class="example-orbit" data-orbit>
+    <% @federalOffices.each_with_index do |fo, index| %>
+        <li>
+            <a href="#" data-reveal-id="modal<%= index %>">
+                <img src="<%= fo['official_photoUrl'] %>" alt="<%= fo['official_name'] %>" />
+                <div class="orbit-caption"><%= fo['official_name'] %></div>
+            </a>
+        </li>
+    <% end %>
+</ul>
+<% @federalOffices.each_with_index do |fo, index| %>
+    <div id="modal<%= index %>" class="reveal-modal" data-reveal>
+        <p><%= fo['official_name'] %>
+           <% if fo['official_party'] != nil %>
+                <% if fo['official_party'].downcase.start_with?('democrat') %>
+                    <%= image_tag('parties/democrats.svg', alt: 'Democrat') %>
+                <% elsif fo['official_party'].downcase.start_with?('republic') %>
+                    <%= image_tag('parties/republicans.svg', alt: 'Republican') %>
+                <% end %>
+            <% end %>
+            </p>
+            <p><%= fo['name'] %> <%= fo['official_party'] %></p>
+        <% if fo['official_urls'] != nil %>
+            <%# some urls are invalid and/or give a 404 - check this and don't show invalid urls? #%>
+            <p><% fo['official_urls'].each do |url| %>
+                <a href="<%= url %>" target="_blank"><%= URI(url).host %></a><br/>
+            <% end %></p>
+        <% end %>
+        <% if fo['official_phones'] != nil %>
+            <p>Phone: <%= fo['official_phones'][0] %></p>
+        <% end %>
+        <% if fo['official_emails'] != nil %>
+            <p>Email: <%= fo['official_emails'][0] %></p>
+        <% end %>
+        <% if fo['official_address'] != nil %>
+            <address>
+                <% if fo['official_address'][0]['line1'] != nil %>
+                    <%= fo['official_address'][0]['line1'] %><br/>
+                <% end %>
+                <% if fo['official_address'][0]['line2'] != nil %>
+                    <%= fo['official_address'][0]['line2']%><br/>
+                <% end %>
+                <% if fo['official_address'][0]['city'] != nil %>
+                    <%= fo['official_address'][0]['city'].capitalize %>,&nbsp;
+                <% end %>
+                <% if fo['official_address'][0]['state'] != nil %>
+                    <%= fo['official_address'][0]['state'].upcase %>
+                <% end %>
+                <% if fo['official_address'][0]['zip'] != nil %>
+                    <%= fo['official_address'][0]['zip'] %>
+                <% end %>
+            </address>
+        <% end %>
+        <% if fo['official_channels'] != nil %>
+            <p>
+                <% fo['official_channels'].each do |channel| %>
+                    <% if channel['type'].downcase == 'facebook' %>
+                        <a href="https://www.facebook.com/<%= channel['id'] %>" target="_blank">
+                            <%= image_tag('webicons/webicon-facebook-m.png') %>
+                        </a>
+                    <% elsif channel['type'].downcase == 'twitter' %>
+                        <a href="https://www.twitter.com/<%= channel['id'] %>" target="_blank">
+                            <%= image_tag('webicons/webicon-twitter-m.png') %>
+                        </a>
+                    <% elsif channel['type'].downcase == 'youtube' %>
+                        <a href="http://www.youtube.com/<%= channel['id'] %>" target="_blank">
+                            <%
+=begin %>
+                        Mayor Eric Garcetti's YouTube id is 'UC2rvX04kIK5BqcLUDVXJThg'
+                        'http://www.youtube.com/channel/UC2rvX04kIK5BqcLUDVXJThg' does work
+                        'http://www.youtube.com/UC2rvX04kIK5BqcLUDVXJThg' does not work
+
+                        Presiden Barack Obama's YouTube id is 'BarackObamadotcom'
+                        'http://www.youtube.com/BarackObamadotcom' does work
+                        'http://www.youtube.com/channel/BarackObamadotcom/' does not work
+
+                        <%
+=end %>
+                            <%= image_tag('webicons/webicon-youtube-m.png') %>
+                        </a>
+                    <% elsif channel['type'].downcase == 'googleplus' %>
+                        <a href="https://plus.google.com/<%= channel['id'] %>/posts" target="_blank">
+                            <%= image_tag('webicons/webicon-googleplus-m.png') %>
+                        </a>
+                    <% end %>
+                <% end %>
+            </p>
+        <% end %>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+<% end %>
