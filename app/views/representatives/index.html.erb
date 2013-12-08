@@ -1,43 +1,9 @@
-<h2>Your Representatives</h2>
-<dl class="accordion" data-accordion>
-    <% if @cityOffices.any? %>
-        <dd>
-            <a href='#panel-ct'>City Representatives</a>
-            <div id='panel-ct' class='content'>
-                <%= render partial: 'tabcontent', locals: { :theseoffices => @cityOffices} %>
-            </div>
-        </dd>
-    <% end %>
-    <% if @countyOffices.any? %>
-        <dd>
-            <a href='#panel-co'>County Representatives</a>
-            <div id='panel-co' class='content'>
-                <%= render partial: 'tabcontent', locals: { :theseoffices => @countyOffices } %>
-            </div>
-        </dd>
-    <% end %>
-    <% if @stateOffices.any? %>
-        <dd>
-            <a href='#panel-so'>State Representatives</a>
-            <div id='panel-so' class='content'>
-                <%= render partial: 'tabcontent', locals: { :theseoffices => @stateOffices } %>
-            </div>
-        </dd>
-    <% end %>
-    <% if @federalOffices.any? %>
-        <dd>
-            <a href='#panel-fo'>Federal Representatives</a>
-            <div id='panel-fo' class='content'>
-                <%= render partial: 'tabcontent', locals: { :theseoffices => @federalOffices } %>
-            </div>
-        </dd>
-    <% end %>
-    <% if @otherOffices.any? %>
-        <dd>
-            <a href='#panel-oo'>Other Representatives</a>
-            <div id='panel-oo' class='content'>
-                <%= render partial: 'tabcontent', locals: { :theseoffices => @otherOffices } %>
-            </div>
-        </dd>
-    <% end %>
-</dl>
+<form action="<%= checkAddress_path %>" method="GET">
+    <div class="row">
+        <div class="small-12 columns">
+            <label>Address</label>
+            <input type="text" name="address" placeholder="2516 Cincinnati St, Los Angeles" required />
+            <input type="submit" class="button tiny round" value="Find" />
+        </div>
+    </div>
+</form>

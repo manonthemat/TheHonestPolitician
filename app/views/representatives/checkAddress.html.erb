@@ -1,0 +1,68 @@
+<% content_for :javascript_includes do %>
+    <script>
+        // ToDo: redraw this mofo... zurb foundation 5 should make it easier, not harder to develop web apps
+        // this is necessary due to a bug in the orbit slider
+        function fixitnow() {
+            $(window).resize();
+        }
+        $(document).foundation({
+            orbit: {
+                bullets: false,
+                navigation_arrows: true,
+                slide_number_text: '/',
+                before_slide_change: fixitnow,
+                timer_speed: 1000,
+            }
+
+        });
+        $(document).ready(function() {
+            $('dd a').click(function() {
+                fixitnow();
+            });
+        });
+    </script>
+<% end %>
+<h2>Your Representatives</h2>
+<dl class="accordion" data-accordion>
+    <% if @cityOffices.any? %>
+        <dd>
+            <a href='#panel-ct'>City Representatives</a>
+            <div id='panel-ct' class='content'>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @cityOffices} %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @countyOffices.any? %>
+        <dd>
+            <a href='#panel-co'>County Representatives</a>
+            <div id='panel-co' class='content'>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @countyOffices } %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @stateOffices.any? %>
+        <dd>
+            <a href='#panel-so'>State Representatives</a>
+            <div id='panel-so' class='content'>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @stateOffices } %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @federalOffices.any? %>
+        <dd>
+            <a href='#panel-fo'>Federal Representatives</a>
+            <div id='panel-fo' class='content'>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @federalOffices } %>
+            </div>
+        </dd>
+    <% end %>
+    <% if @otherOffices.any? %>
+        <dd>
+            <a href='#panel-oo'>Other Representatives</a>
+            <div id='panel-oo' class='content'>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @otherOffices } %>
+            </div>
+        </dd>
+    <% end %>
+</dl>
+

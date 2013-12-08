@@ -1,6 +1,12 @@
 class RepresentativesController < ApplicationController
   def index
-    repr = getRepresentatives('19300 Rinaldi St, Los Angeles')
+  end
+
+  def checkAddress
+    if params[:address].blank?
+      params[:address] = '2516 Cincinnati St, Los Angeles'
+    end
+    repr = getRepresentatives(params[:address])
     officials = repr[1]
     offices = {}
     offices[:cityOffices] = []
