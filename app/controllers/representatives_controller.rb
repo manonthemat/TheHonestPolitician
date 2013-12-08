@@ -69,11 +69,11 @@ class RepresentativesController < ApplicationController
   end
 
   def getVotes
-    full_name = params[:full_name]
+    @full_name = params[:full_name]
     require "json"
     require "net/http"
     require "uri"
-    name = full_name.split(' ')
+    name = @full_name.split(' ')
     if name.length == 2
       first_name = name[0].capitalize
       last_name = name[1].capitalize
@@ -97,7 +97,8 @@ class RepresentativesController < ApplicationController
       votes = SUNLIGHT_API_ROOT + "/votes?voter_ids.#{@bio_id}__exists=true&apikey=#{SUNLIGHT_KEY}&fields=question,vote_type,result,source"
       uri = URI.parse(votes)
       http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Get.new(uri.request_uri, initheader = {'Content-Type' =>'application/json'})
+      #request = Net::HTTP::Get.new(uri.request_uri, initheader = {'Content-Type' =>'application/json'})
+      request = Net::HTTP::Get.new(uri.request_uri)
       response = http.request(request)
       @votes = JSON.parse(response.body)
     rescue Exception

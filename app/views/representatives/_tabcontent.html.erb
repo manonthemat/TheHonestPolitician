@@ -35,7 +35,7 @@
             <p>Phone: <%= fo['official_phones'][0] %></p>
         <% end %>
         <% if fo['official_emails'] != nil %>
-            <p>Email: <%= fo['official_emails'][0] %></p>
+            <p>Email: <a href="mailto:<%= fo['official_emails'][0] %>?subject='Mail from The Honest Politician'"><%= fo['official_emails'][0] %></a></p>
         <% end %>
         <% if fo['official_address'] != nil %>
             <address>
@@ -90,6 +90,7 @@
                     <% end %>
                 <% end %>
             </p>
+            <p><a href="/getVotes?full_name=<%= fo['official_name'].sub(' ','%20') %>" target="_blank">Votes</a></p>
         <% end %>
         <a class="close-reveal-modal">&#215;</a>
     </div>

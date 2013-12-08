@@ -10,8 +10,8 @@ ToDo
     - use AJAX
 - Better Social Networks integration
 - Improve UI
-- Provide information about votes and discussions of representatives
-    - using the Sunlight Foundation Congress API
+- Provide more about votes and discussions of representatives
+    - adding govtrack.us API
     - use of tts for longer texts
 - Use of Geo Information for address input
 - Find ways to collaborate with Google to improve data quality

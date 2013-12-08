@@ -1,3 +1,11 @@
-<%= @bio_id %>
-<hr />
-<%= @votes %>
+<h1><%= @full_name %> voted...</h1>
+<% if @bio_id != 'none' %>
+    <% @votes['results'].each do |vote| %>
+        <p>
+            <%= vote['result'] %>
+            <a href="<%= vote['source'] %>" target="_blank"><%= vote['question'] %></a>
+        </p><hr/>
+    <% end %>
+<% else %>
+    <p>Sorry, I don't know how this person voted.</p>
+<% end %>
