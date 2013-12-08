@@ -1,25 +1,25 @@
 <ul class="example-orbit" data-orbit>
-    <% @federalOffices.each_with_index do |fo, index| %>
+    <% theseoffices.each_with_index do |fo, index| %>
         <li>
-            <a href="#" data-reveal-id="modal<%= index %>">
+            <a href="#" data-reveal-id="<%= fo['level'] %><%= index %>">
                 <img src="<%= fo['official_photoUrl'] %>" alt="<%= fo['official_name'] %>" />
                 <div class="orbit-caption"><%= fo['official_name'] %></div>
             </a>
         </li>
     <% end %>
 </ul>
-<% @federalOffices.each_with_index do |fo, index| %>
-    <div id="modal<%= index %>" class="reveal-modal" data-reveal>
+<% theseoffices.each_with_index do |fo, index| %>
+    <div id="<%= fo['level'] %><%= index %>" class="reveal-modal" data-reveal>
         <p><%= fo['official_name'] %>
            <% if fo['official_party'] != nil %>
                 <% if fo['official_party'].downcase.start_with?('democrat') %>
-                    <%= image_tag('parties/democrats.svg', alt: 'Democrat') %>
+                    <%= image_tag('parties/democrats.svg', alt: 'Democrat', style: "float: right") %>
                 <% elsif fo['official_party'].downcase.start_with?('republic') %>
                     <%= image_tag('parties/republicans.svg', alt: 'Republican') %>
                 <% end %>
             <% end %>
             </p>
-            <p><%= fo['name'] %> <%= fo['official_party'] %></p>
+            <p><%= fo['name'] %> <small><%= fo['official_party'] %></small></p>
         <% if fo['official_urls'] != nil %>
             <%# some urls are invalid and/or give a 404 - check this and don't show invalid urls? #%>
             <p><% fo['official_urls'].each do |url| %>

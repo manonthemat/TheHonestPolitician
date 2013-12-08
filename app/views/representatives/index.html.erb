@@ -4,7 +4,7 @@
         <dd>
             <a href='#panel-ct'>City Representatives</a>
             <div id='panel-ct' class='content'>
-                <%= @cityOffices %>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @cityOffices} %>
             </div>
         </dd>
     <% end %>
@@ -12,7 +12,7 @@
         <dd>
             <a href='#panel-co'>County Representatives</a>
             <div id='panel-co' class='content'>
-                <%= @countyOffices %>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @countyOffices } %>
             </div>
         </dd>
     <% end %>
@@ -20,7 +20,7 @@
         <dd>
             <a href='#panel-so'>State Representatives</a>
             <div id='panel-so' class='content'>
-                <%= @stateOffices %>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @stateOffices } %>
             </div>
         </dd>
     <% end %>
@@ -28,7 +28,7 @@
         <dd>
             <a href='#panel-fo'>Federal Representatives</a>
             <div id='panel-fo' class='content'>
-                <%= render partial: 'tabcontent' %>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @federalOffices } %>
             </div>
         </dd>
     <% end %>
@@ -36,7 +36,7 @@
         <dd>
             <a href='#panel-oo'>Other Representatives</a>
             <div id='panel-oo' class='content'>
-                <%= @otherOffices %>
+                <%= render partial: 'tabcontent', locals: { :theseoffices => @otherOffices } %>
             </div>
         </dd>
     <% end %>

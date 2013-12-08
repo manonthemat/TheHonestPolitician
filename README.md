@@ -1,0 +1,12 @@
+ToDo
+- Refactoring!
+- Validate Google's Data
+    - small changes: 'Democrat' vs. 'Democratic'
+    - 404s
+    - channel ids vs. usernames
+    - 'other' when 'city'
+- Improve loading time
+    - graphics
+    - use AJAX
+- Better Social Networks integration
+- Improve UI
