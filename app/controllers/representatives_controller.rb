@@ -68,11 +68,38 @@ class RepresentativesController < ApplicationController
     return [@offices, @officials]
   end
 
-  def getRepresentativesVotes(voter_id)
-    vote_url = SUNLIGHT_API_ROOT + "/votes?voter_ids.#{voter_id}__exists=true"
+  def getRepresentativesVotes(rep_id)
+    votes = SUNLIGHT_API_ROOT + "/votes?voter_ids.#{rep_id}__exists=true&apikey=#{SUNLIGHT_KEY}&fields=question,vote_type,result,source"
   end
 
-  def getRepresentativesID(first_name, last_name)
-    SUNLIGHT_API_ROOT + "/legislators?query=#{last_name}&first_name=#{first_name}&apikey=#{SUNLIGHT_KEY}&fields=bioguide_id"
+  def getRepresentativesID
+    full_name = params[:full_name]
+    require "json"
+    require "net/http"
+    require "uri"
+    name = full_name.split(' ')
+    if name.length == 2
+      first_name = name[0].capitalize
+      last_name = name[1].capitalize
+      rep_id = SUNLIGHT_API_ROOT + "/legislators?last_name=#{last_name}&first_name=#{first_name}&apikey=#{SUNLIGHT_KEY}&fields=bioguide_id"
+    else
+      if name[0].include?('.') == false and name[0].length > 2
+        first_name = name[0].capitalize
+        query_name = name[1].capitalize
+      else
+        first_name = name[1].capitalize
+        query_name = name[2].capitalize
+      end
+      rep_id = SUNLIGHT_API_ROOT + "/legislators?query=#{query_name}&first_name=#{first_name}&apikey=#{SUNLIGHT_KEY}&fields=bioguide_id"
+    end
+    uri = URI.parse(rep_id)
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Get.new(uri.request_uri, initheader = {'Content-Type' =>'application/json'})
+    response = http.request(request)
+    begin
+      @bio_id = JSON.parse(response.body)['results'][0]['bioguide_id']
+    rescue Exception
+      @bio_id = 'none'
+    end
   end
 end
